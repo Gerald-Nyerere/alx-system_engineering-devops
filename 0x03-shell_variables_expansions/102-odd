@@ -1,2 +1,2 @@
 #!/bin/bash
-i=0;while read;do [ $((i%2)) -eq 0 ]&&echo $REPLY;i=$((i+1));done
+i=0;while read;do test $((i%2)) -eq 0 && echo "$REPLY";i=$((i+1));done
