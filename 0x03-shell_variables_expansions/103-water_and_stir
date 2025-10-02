@@ -1,2 +1,98 @@
 #!/bin/bash
-echo $(( $(echo "$WATER" | tr 'water' '01234') + $(echo "$STIR" | tr 'stir.' '01234') )) | tr '0123456789' 'bestcholhc'
+
+water_to_decimal() {
+    local str="$1"
+    local base_chars="water"
+    local result=0
+    local base=${#base_chars}
+    
+    local reversed=$(echo "$str" | rev)
+    
+    for (( i=0; i<${#reversed}; i++ )); do
+        local char="${reversed:$i:1}"
+        local value=0
+        
+        # Find the position of the character in base_chars
+        for (( j=0; j<${#base_chars}; j++ )); do
+            if [ "${base_chars:$j:1}" = "$char" ]; then
+                value=$j
+                break
+            fi
+        done
+        
+        result=$((result + value * (base ** i)))
+    done
+    
+    echo $result
+}
+
+# Convert from base stir to decimal
+stir_to_decimal() {
+    local str="$1"
+    local base_chars="stir"
+    local result=0
+    local base=${#base_chars}
+    
+    # Reverse the string to process from right to left
+    local reversed=$(echo "$str" | rev)
+    
+    for (( i=0; i<${#reversed}; i++ )); do
+        local char="${reversed:$i:1}"
+        local value=0
+        
+        # Find the position of the character in base_chars
+        for (( j=0; j<${#base_chars}; j++ )); do
+            if [ "${base_chars:$j:1}" = "$char" ]; then
+                value=$j
+                break
+            fi
+        done
+        
+        result=$((result + value * (base ** i)))
+    done
+    
+    echo $result
+}
+
+# Convert decimal to base bestchol
+decimal_to_bestchol() {
+    local num=$1
+    local base_chars="bestchol"
+    local base=${#base_chars}
+    local result=""
+    
+    if [ $num -eq 0 ]; then
+        echo "${base_chars:0:1}"
+        return
+    fi
+    
+    while [ $num -gt 0 ]; do
+        local remainder=$((num % base))
+        result="${base_chars:$remainder:1}$result"
+        num=$((num / base))
+    done
+    
+    echo "$result"
+}
+
+# Main execution
+if [ -z "$WATER" ]; then
+    echo "Error: WATER environment variable is not set" >&2
+    exit 1
+fi
+
+if [ -z "$STIR" ]; then
+    echo "Error: STIR environment variable is not set" >&2
+    exit 1
+fi
+
+# Convert both numbers to decimal
+water_dec=$(water_to_decimal "$WATER")
+stir_dec=$(stir_to_decimal "$STIR")
+
+# Add them together
+total=$((water_dec + stir_dec))
+
+# Convert to base bestchol and print
+result=$(decimal_to_bestchol $total)
+echo "$result"
