@@ -1,2 +1,2 @@
 #!/bin/bash
-echo $(echo $WATER | tr 'water' '01234') + $(echo $STIR | tr 'stir' '0123') | tr '0123456789' 'bestchol'
+echo "$(( $(for((i=0;i<${#WATER};i++));do printf "%d " $(expr index "water" "${WATER:i:1}");done) | awk '{s=0;for(i=1;i<=NF;i++){s=s*5+($i-1)};print s}') + $(for((i=0;i<${#STIR};i++));do printf "%d " $(expr index "stir" "${STIR:i:1}");done) | awk '{s=0;for(i=1;i<=NF;i++){s=s*4+($i-1)};print s}') ))" | awk 'BEGIN{b="bestchol"}{s="";while($1>0){s=substr(b,($1%8)+1,1)s;$1=int($1/8)}if(s=="")s=substr(b,1,1);print s}'
