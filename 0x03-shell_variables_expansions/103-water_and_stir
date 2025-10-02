@@ -1,2 +1,2 @@
 #!/bin/bash
-to_dec(){ n=$1; b=$2; r=0; for ((i=0;i<${#n};i++)); do d=$(expr index "$b" "${n:i:1}"); ((d--)); r=$((r*${#b}+d)); done; echo $r; }; from_dec(){ n=$1; b=$2; r=""; l=${#b}; while [ $n -gt 0 ]; do m=$((n%l)); r="${b:m:1}$r"; n=$((n/l)); done; echo $r; }; echo $(from_dec $(( $(to_dec "$WATER" "ewatr") + $(to_dec "$STIR" "tir") )) "shtbeolhc")
+to_dec(){ n=$1 b=$2 r=0; for ((i=0;i<${#n};i++)); do d=$(expr index "$b" "${n:i:1}"); ((d--)); r=$((r*${#b}+d)); done; echo $r; }; from_dec(){ n=$1 b=$2 r=""; l=${#b}; while [ $n -gt 0 ]; do m=$((n%l)); r="${b:m:1}$r"; n=$((n/l)); done; echo $r; }; echo $(from_dec $(( $(to_dec "$WATER" "ewatr") + $(to_dec "$STIR"*_
