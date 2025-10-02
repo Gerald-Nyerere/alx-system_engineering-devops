@@ -1,2 +1,2 @@
 #!/bin/bash
-n=0; for ((i=0;i<${#WATER};i++)); do n=$((n*5 + ${WATER:i:1//[water]/01234})); done; m=0; for ((i=0;i<${#STIR};i++)); do m=$((m*4 + ${STIR:i:1//[stir.]/0123})); done; sum=$((n+m)); out=""; b="bestcholna"; while ((sum>0)); do out="${b:sum%10:1}$out"; sum/=10; done; echo $out
+echo $((5#$(echo $WATER | tr 'water' '01234') + 5#$(echo $STIR | tr 'stir.' '01234'))) | tr '0123456789' 'bestcholan'
