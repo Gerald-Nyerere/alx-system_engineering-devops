@@ -1,2 +1,2 @@
 #!/bin/bash
-dec=0; for ((i=0;i<${#WATER};i++)); do dec=$((dec*5 + $(expr index "water" "${WATER:i:1}" - 1))); done; for ((i=0;i<${#STIR};i++)); do dec=$((dec*4 + $(expr index "stir" "${STIR:i:1}" - 1))); done; out=""; b="bestcholna"; while ((dec>0)); do out="${b:dec%10:1}$out"; dec=$((dec/10)); done; echo $out
+echo $((5#$(echo $WATER | tr 'water' '01234') + 5#$(echo $STIR | tr 'stir.' '01234'))) | tr '0123456789' 'bestcholan'
