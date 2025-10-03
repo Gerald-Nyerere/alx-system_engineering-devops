@@ -1,2 +1,2 @@
 #!/bin/bash
-echo $STIR | rev
+echo $WATER$STIR | rev
