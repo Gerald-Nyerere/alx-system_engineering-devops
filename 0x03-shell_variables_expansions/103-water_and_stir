@@ -1,2 +1,2 @@
 #!/bin/bash
-bash -c 'n=$((5#$(echo $WATER|tr "water" "01234")+5#$(echo $STIR|tr "stir." "01234")));r=;b=bestchol;while [ $n -gt 0 ]; do r=${b:n%${#b}:1}$r; n=$((n/${#b})); done; echo $r'
+n=$((5#$(echo $WATER|tr 'water' '01234')+5#$(echo $STIR|tr 'stir.' '01234')));r='';b=bestchol;while[ $n -gt 0 ];do r=${b:n%${#b}:1}$r;n=$((n/${#b}));done;echo $r
